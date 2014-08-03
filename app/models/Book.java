@@ -27,4 +27,12 @@ public class Book extends Model {
 	public static List<Book> findAll() {
 		return find.all();
 	}
+	
+	/**
+	 * Calculates how much of the book has been read
+	 * @return The percentage of the book read
+	 */
+	public int getProgress() {
+		return (pagesRead * 100 / pages);
+	}
 }
