@@ -1,0 +1,19 @@
+@(bookForm: Form[Book])
+
+@import helper._
+
+@implicitField = @{ FieldConstructor(bootstrap3FieldConstructorTemplate.f) }
+
+@main(if(bookForm("id") == null) "Edit a book" else "Add a new book") {
+	@helper.form(action = routes.Books.save(), 'class -> "form-horizontal") {
+		<fieldset>
+			<legend>Book (@bookForm("title").valueOr("new"))</legend>
+			<input type="hidden" value="@bookForm("id").value" class="form-control" id="id" name="id">
+			@helper.inputText(bookForm("title"), 'class -> "form-control")
+			@helper.inputText(bookForm("pages"), 'class -> "form-control")
+			@helper.inputText(bookForm("pages_read"), 'class -> "form-control")
+			
+			<button type="submit" class="btn btn-primary">Add</button>
+		</fieldset>
+	}
+}
