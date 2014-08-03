@@ -1,0 +1,30 @@
+@(book: Book)
+@import play.api.templates.Html
+
+@main("Details for <em>" + book.title + "</em>") {
+
+	<div class="progress">
+		<div class="progress-bar" role="progressbar" aria-valuenow="@book.getProgress" aria-valuemin="0" aria-valuemax="100" style="width: @book.getProgress%;">
+			@book.getProgress% read
+		</div>
+	</div>
+	<p>
+		<a href="@routes.Books.edit(book.id)">
+			<button type="button" class="btn btn-default">
+		  		<span class="glyphicon glyphicon-pencil"></span> Edit
+			</button>
+		</a>
+	</p>
+	<div class="row">
+		<div class="col-xs-12 col-md-12">
+			<table class="table table-striped">
+				<tr><th>Title</td><td>@book.title</td></tr>
+				<tr><th>ISBN</td><td>@book.isbn</td></tr>
+				<tr><th>Pages</td><td>@book.pages</td></tr>
+				<tr><th>Pages read</td><td>@book.pagesRead</td></tr>
+				
+			</table>
+		</div>
+	</div>
+	
+}
