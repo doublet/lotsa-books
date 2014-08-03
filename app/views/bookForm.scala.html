@@ -4,16 +4,15 @@
 
 @implicitField = @{ FieldConstructor(bootstrap3FieldConstructorTemplate.f) }
 
-@main(if(bookForm("id") == null) "Edit a book" else "Add a new book") {
+@main(if(bookForm("id").value == null) "Add a new book" else "Edit a book") {
 	@helper.form(action = routes.Books.save(), 'class -> "form-horizontal") {
 		<fieldset>
-			<legend>Book (@bookForm("title").valueOr("new"))</legend>
+			<legend>@bookForm("title").valueOr("New book")</legend>
 			<input type="hidden" value="@bookForm("id").value" class="form-control" id="id" name="id">
 			@helper.inputText(bookForm("title"), 'class -> "form-control")
 			@helper.inputText(bookForm("pages"), 'class -> "form-control")
 			@helper.inputText(bookForm("pagesRead"), 'class -> "form-control")
-			
-			<button type="submit" class="btn btn-primary">Add</button>
+			<button type="submit" class="btn btn-primary">@(if(bookForm("id").value == null) "Add" else "Update")</button>
 		</fieldset>
 	}
 }
