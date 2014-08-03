@@ -40,7 +40,8 @@ public class Books extends Controller {
 	 * @return
 	 */
 	public static Result edit(long id) {
-		return TODO;
+		Book editBook = Book.findById(id);
+		return ok(views.html.bookForm.render(bookForm.fill(editBook)));
 	}
 	
 	/**
