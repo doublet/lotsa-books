@@ -26,8 +26,10 @@
   <body>
     @navbar()
     <h1>@title</h1>
-
-@content
+  	<div class="container">
+  		@showflash()
+    	@content
+    </div>
 
     <!-- Bootstrap core JavaScript
 ================================================== -->
