@@ -1,8 +1,9 @@
 package controllers;
 
+import models.Book;
 import play.mvc.Controller;
 import play.mvc.Result;
-import scala.NotImplementedError;
+import views.html.*;
 
 public class Books extends Controller {
 	
@@ -11,7 +12,7 @@ public class Books extends Controller {
 	 * @return
 	 */
 	public static Result list() {
-		return TODO;
+		return ok(list.render(Book.findAll()));
 	}
 	
 	/**

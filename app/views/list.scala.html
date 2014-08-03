@@ -1,0 +1,30 @@
+@(books: List[Book])
+
+@main("All books") {
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Name</th>
+          <th>Author</th>
+          <th>Pages</th>
+        </tr>
+      </thead>
+      <tbody>
+      
+      @for(book <- books) {
+        <tr>
+          <td>
+          	<a href="@routes.Books.edit(book.id)"><span class="glyphicon glyphicon-pencil"></span></a>
+			<a href="@routes.Books.details(book.id)"><span class="glyphicon glyphicon-search"></span></a>
+		  </td>
+          <td>@book.title</td>
+          <td>Left blank for now</td>
+          <td>@book.pagesRead / @book.pages</td>
+        </tr>
+      }
+      </tbody>
+    </table>
+  </div>
+}
