@@ -1,11 +1,13 @@
 package controllers;
 
 import models.Book;
+import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.*;
 
 public class Books extends Controller {
+	private static final Form<Book> bookForm = new Form<>(Book.class);	
 	
 	/**
 	 * List all books
@@ -29,7 +31,7 @@ public class Books extends Controller {
 	 * @return
 	 */
 	public static Result newBook() {
-		return TODO;
+		return ok(views.html.bookForm.render(bookForm));
 	}
 	
 	/**
@@ -46,6 +48,19 @@ public class Books extends Controller {
 	 * @return
 	 */
 	public static Result save() {
-		return TODO;
+		Form<Book> boundForm = bookForm.bindFromRequest();
+		
+		if(boundForm.hasErrors()) {
+			flash("There was an error in you submission. Please try again.");
+			return badRequest(views.html.bookForm.render(boundForm));
+		}
+		
+		Book boundBook = boundForm.get();
+		if(boundBook.id == null)
+			boundBook.save();
+		else
+			boundBook.update();
+		
+		return redirect(routes.Books.details(boundBook.id));
 	}
 }
