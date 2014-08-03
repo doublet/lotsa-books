@@ -1,18 +1,24 @@
 @()
           @if(flash.containsKey("error")) {
-          	<p class="bg-danger">
+          	<p class="alert alert-danger">
           		@flash.get("error")
           	</p>
           }
           
           @if(flash.containsKey("success")) {
-          	<p class="bg-success">
+          	<p class="alert alert-success">
           		@flash.get("success")
           	</p>
           }
           
           @if(flash.containsKey("warning")) {
-          	<p class="bg-warning">
+          	<p class="alert alert-warning">
+          		@flash.get("warning")
+          	</p>
+          }
+          
+          @if(flash.containsKey("notice")) {
+          	<p class="alert alert-info">
           		@flash.get("warning")
           	</p>
           }
