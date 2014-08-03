@@ -1,10 +1,11 @@
 import java.util.List;
 
+import javax.persistence.Entity;
 import javax.persistence.Id;
 
 import play.db.ebean.Model;
 
-
+@Entity
 public class Book extends Model {
 	public Finder<Long, Book> find = new Finder<>(Long.class, Book.class);
 	
