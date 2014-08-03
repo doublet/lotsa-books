@@ -2,6 +2,13 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
+GET		/books/						controllers.Books.list()
+GET		/books/list					controllers.Books.list()
+GET		/books/new					controllers.Books.newBook()
+GET		/books/details/:id			controllers.Books.details(id: Long)
+GET		/books/edit/:id				controllers.Books.edit(id: Long)
+POST	/books/save					controllers.Books.save()
+
 # Home page
 GET     /                           controllers.Application.index()
 
