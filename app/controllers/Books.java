@@ -23,7 +23,10 @@ public class Books extends Controller {
 	 * @return
 	 */
 	public static Result details(long id) {
-		return TODO;
+		Book showBook = Book.findById(id);
+		if(showBook == null)
+			return notFound("Not Found");
+		return ok(details.render(showBook));
 	}
 	
 	/**
@@ -52,7 +55,7 @@ public class Books extends Controller {
 		Form<Book> boundForm = bookForm.bindFromRequest();
 		
 		if(boundForm.hasErrors()) {
-			flash("There was an error in you submission. Please try again.");
+			flash("error", "There was an error in you submission. Please try again.");
 			return badRequest(views.html.bookForm.render(boundForm));
 		}
 		
