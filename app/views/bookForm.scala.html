@@ -10,6 +10,7 @@
 			<legend>@bookForm("title").valueOr("New book")</legend>
 			<input type="hidden" value="@bookForm("id").value" class="form-control" id="id" name="id">
 			@helper.inputText(bookForm("title"), 'class -> "form-control")
+			@helper.inputText(bookForm("isbn"), 'class -> "form-control")
 			@helper.inputText(bookForm("pages"), 'class -> "form-control")
 			@helper.inputText(bookForm("pagesRead"), 'class -> "form-control")
 			<button type="submit" class="btn btn-primary">@(if(bookForm("id").value == null) "Add" else "Update")</button>
