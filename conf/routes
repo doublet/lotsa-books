@@ -2,12 +2,12 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-GET		/books/						controllers.Books.list()
-GET		/books/list					controllers.Books.list()
-GET		/books/new					controllers.Books.newBook()
-GET		/books/details/:id			controllers.Books.details(id: Long)
-GET		/books/edit/:id				controllers.Books.edit(id: Long)
-POST	/books/save					controllers.Books.save()
+GET		/						controllers.Books.list()
+GET		/list					controllers.Books.list()
+GET		/new					controllers.Books.newBook()
+GET		/details/:id			controllers.Books.details(id: Long)
+GET		/edit/:id				controllers.Books.edit(id: Long)
+POST	/save					controllers.Books.save()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
