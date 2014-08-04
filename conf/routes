@@ -9,6 +9,8 @@ GET		/details/:id			controllers.Books.details(id: Long)
 GET		/edit/:id				controllers.Books.edit(id: Long)
 POST	/save					controllers.Books.save()
 
+GET		/search/:query			controllers.OpenLibrary.matchingItems(query: String)
+
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
 
