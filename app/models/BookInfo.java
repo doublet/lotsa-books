@@ -1,5 +1,6 @@
 package models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Id;
@@ -12,16 +13,14 @@ public class BookInfo extends Model {
 	
 	// main information
 	public String title;
-	public String authorName;
-	public String language;
+	public List<String> authorName = new ArrayList<>();
+	public List<String> language = new ArrayList<>();
 	
 	// publish information
-	public String publishPlace;
-	public String firstPublishYear;
 	public String publishYear;
-	public String publisher;
+	public List<String> publisher = new ArrayList<>();
 	
 	// identification
 	public String openlibraryKey;
-	public List<String> isbn;
+	public List<String> isbn = new ArrayList<>();
 }
