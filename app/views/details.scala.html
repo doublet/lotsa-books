@@ -1,7 +1,7 @@
 @(book: Book)
 @import play.api.templates.Html
 
-@main("Details for <em>" + book.title + "</em>") {
+@main("Details for <em>" + book.info.title + "</em>") {
 
 	<div class="progress">
 		<div class="progress-bar" role="progressbar" aria-valuenow="@book.getProgress" aria-valuemin="0" aria-valuemax="100" style="width: @book.getProgress%;">
@@ -18,8 +18,17 @@
 	<div class="row">
 		<div class="col-xs-12 col-md-12">
 			<table class="table table-striped">
-				<tr><th>Title</td><td>@book.title</td></tr>
-				<tr><th>ISBN</td><td>@book.isbn</td></tr>
+				<tr><th>Title</td><td>@book.info.title</td></tr>
+				<tr>
+					<th>ISBN</td>
+					<td>
+						<ul>
+							@for(i <- book.info.isbn) {
+								<li>i</li>
+							}
+						</ul>
+					</td>
+				</tr>
 				<tr><th>Pages</td><td>@book.pages</td></tr>
 				<tr><th>Pages read</td><td>@book.pagesRead</td></tr>
 				
