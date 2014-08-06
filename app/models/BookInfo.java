@@ -2,21 +2,26 @@ package models;
 
 import java.util.List;
 
+import javax.persistence.Id;
+
 import play.db.ebean.Model;
 
 public class BookInfo extends Model {
+	@Id
+	public Long id;
+	
 	// main information
 	public String title;
-	public String author_name;
+	public String authorName;
 	public String language;
 	
 	// publish information
-	public String publish_place;
-	public String first_publish_year;
-	public String publish_year;
+	public String publishPlace;
+	public String firstPublishYear;
+	public String publishYear;
 	public String publisher;
 	
 	// identification
-	public String openlibrary_key;
+	public String openlibraryKey;
 	public List<String> isbn;
 }
