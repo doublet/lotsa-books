@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 
 import play.mvc.Controller;
 import play.libs.WS;
+import play.libs.Json;
 import play.mvc.Result;
 import static play.libs.F.Function;
 import static play.libs.F.Promise;
@@ -41,7 +42,16 @@ public class OpenLibrary extends Controller {
 							BookInfo toAdd = new BookInfo();
 							
 							toAdd.title = json.findValue("title").asText();
-							toAdd.author_name = json.findValue("author_name").asText();
+							toAdd.publishYear = json.findValue("publish_year").asText();
+							toAdd.openlibraryKey = json.findValue("key").asText();
+							
+							toAdd.authorName = new ArrayList<>();
+							
+							iteratorToList(json.findValue("author_name").elements(), toAdd.authorName);
+							iteratorToList(json.findValue("isbn").elements(), toAdd.isbn);
+							iteratorToList(json.findValue("publisher").elements(), toAdd.publisher);
+							iteratorToList(json.findValue("language").elements(), toAdd.language);
+							
 							res.add(toAdd);
 							
 						}
@@ -51,6 +61,28 @@ public class OpenLibrary extends Controller {
 	            }
 	    );
 	    return resultPromise;
+	}
+	
+	/**
+	 * Adds all elements of an Iterator<JsonNode> to a List of Strings
+	 */
+	public static void iteratorToList(Iterator<JsonNode> it, List<String> list) {
+		while (it.hasNext()) {
+			JsonNode node = it.next();
+			if(node.asText() == null) continue;
+			list.add(node.asText());
+		}
+	}
+	
+	public static Promise<Result> getBookInfoJson(String query) {
+	    final Promise<Result> promise = getBookInfo(query).map(
+	            new Function<List<BookInfo>, Result>() {
+	                public Result apply(List<BookInfo> lijst) {
+	                    return ok(Json.toJson(lijst));
+	                }
+	            }
+	    );
+	    return promise;
 	}
 	
 }
