@@ -16,7 +16,7 @@ public class Book extends Model {
 	public Long id;
 	
 	@OneToOne
-	public BookInfo info;
+	public BookInfo info = new BookInfo();
 	
 	public int pages;
 	public int pagesRead;
