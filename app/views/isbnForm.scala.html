@@ -1,0 +1,12 @@
+@(isbnForm: Form[Isbn])
+@import play.api.templates.Html
+
+@main("Enter an ISBN number to search") {
+	@helper.form(action = routes.Books.saveFromIsbn(), 'class -> "form-horizontal") {
+		<fieldset>
+			<legend>Enter an ISBN number:</legend>
+				@helper.inputText(isbnForm("isbn"), 'class -> "form-control")
+			<button type="submit" class="btn btn-primary">Search</button>
+		</fieldset>
+	}
+}
