@@ -1,6 +1,6 @@
 package controllers;
 
-import models.Book;
+import models.*;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -8,6 +8,7 @@ import views.html.*;
 
 public class Books extends Controller {
 	private static final Form<Book> bookForm = new Form<>(Book.class);	
+	private static final Form<Isbn> isbnForm = new Form<>(Isbn.class);	
 	
 	/**
 	 * List all books
@@ -35,6 +36,15 @@ public class Books extends Controller {
 	 */
 	public static Result newBook() {
 		return ok(views.html.bookForm.render(bookForm));
+	}
+	
+	
+	/**
+	 * Show form to add a new Book, by only entering its ISBN
+	 * @return
+	 */
+	public static Result newBookFromIsbn() {
+		return ok(views.html.isbnForm.render(isbnForm));
 	}
 	
 	/**
@@ -67,4 +77,13 @@ public class Books extends Controller {
 		
 		return redirect(routes.Books.details(boundBook.id));
 	}
+	
+	/**
+	 * Save a book by binding an ISBN number given in the request and searching for it
+	 * @return
+	 */
+	public static Result saveFromIsbn() {
+		return TODO;
+	}
+
 }
