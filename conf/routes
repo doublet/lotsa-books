@@ -5,12 +5,15 @@
 GET		/						controllers.Books.list()
 GET		/list					controllers.Books.list()
 GET		/new					controllers.Books.newBook()
+GET		/new/fromisbn			controllers.Books.newBookFromIsbn()
 GET		/details/:id			controllers.Books.details(id: Long)
 GET		/edit/:id				controllers.Books.edit(id: Long)
 POST	/save					controllers.Books.save()
 
-GET		/search/num/:query			controllers.OpenLibrary.matchingItems(query: String)
-GET		/search/:query				controllers.OpenLibrary.getBookInfoJson(query: String)
+GET		/search/num/:query		controllers.OpenLibrary.matchingItems(query: String)
+GET		/search/:query			controllers.OpenLibrary.getBookInfoJson(query: String)
+
+POST	/save/fromisbn			controllers.Books.saveFromIsbn()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
