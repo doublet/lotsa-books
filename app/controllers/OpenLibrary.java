@@ -16,7 +16,7 @@ import models.*;
 
 public class OpenLibrary extends Controller {
 	
-	public static Promise<Result> matchingItems(String query) {
+	public static Promise<Result> numatchingItems(String query) {
 	    final Promise<Result> resultPromise = WS.url("http://openlibrary.org/search.json").setQueryParameter("q", query).get().map(
 	            new Function<WS.Response, Result>() {
 	                public Result apply(WS.Response response) {
@@ -27,7 +27,7 @@ public class OpenLibrary extends Controller {
 	    return resultPromise;
 	}
 
-	public static Promise<List<BookInfo>> getBookInfo(String query) {
+	public static Promise<List<BookInfo>> searchBooks(String query) {
 	    final Promise<List<BookInfo>> resultPromise = WS.url("http://openlibrary.org/search.json").setQueryParameter("q", query).get().map(
 	            new Function<WS.Response, List<BookInfo>>() {
 	                public List<BookInfo> apply(WS.Response response) {
@@ -75,7 +75,7 @@ public class OpenLibrary extends Controller {
 	}
 	
 	public static Promise<Result> getBookInfoJson(String query) {
-	    final Promise<Result> promise = getBookInfo(query).map(
+	    final Promise<Result> promise = searchBooks(query).map(
 	            new Function<List<BookInfo>, Result>() {
 	                public Result apply(List<BookInfo> lijst) {
 	                    return ok(Json.toJson(lijst));

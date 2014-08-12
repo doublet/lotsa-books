@@ -10,7 +10,7 @@ GET		/details/:id			controllers.Books.details(id: Long)
 GET		/edit/:id				controllers.Books.edit(id: Long)
 POST	/save					controllers.Books.save()
 
-GET		/search/num/:query		controllers.OpenLibrary.matchingItems(query: String)
+GET		/search/num/:query		controllers.OpenLibrary.numMatchingItems(query: String)
 GET		/search/:query			controllers.OpenLibrary.getBookInfoJson(query: String)
 
 POST	/save/fromisbn			controllers.Books.saveFromIsbn()
