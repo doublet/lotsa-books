@@ -1,9 +1,14 @@
 package controllers;
 
+import java.util.List;
+
 import models.*;
 import play.data.Form;
+import play.libs.F.Function;
+import play.libs.F.Promise;
 import play.mvc.Controller;
 import play.mvc.Result;
+import scala.Function0;
 import views.html.*;
 
 public class Books extends Controller {
@@ -65,7 +70,7 @@ public class Books extends Controller {
 		Form<Book> boundForm = bookForm.bindFromRequest();
 		
 		if(boundForm.hasErrors()) {
-			flash("error", "There was an error in you submission. Please try again.");
+			flash("error", "There was an error in your submission. Please try again.");
 			return badRequest(views.html.bookForm.render(boundForm));
 		}
 		
@@ -82,8 +87,28 @@ public class Books extends Controller {
 	 * Save a book by binding an ISBN number given in the request and searching for it
 	 * @return
 	 */
-	public static Result saveFromIsbn() {
-		return TODO;
+	public static Promise<Result> saveFromIsbn() {
+		Form<Isbn> boundForm = isbnForm.bindFromRequest();
+		
+		if(boundForm.hasErrors()) {
+			flash("error", "There was an error in your submission. Please try again.");
+			Result badReq = badRequest(views.html.isbnForm.render(boundForm));
+			return Promise.pure(badReq);
+		}
+		
+		Isbn boundIsbn = boundForm.get();
+		
+		// search OpenLibrary for this ISBN
+		Promise<List<BookInfo>> list = OpenLibrary.searchBooks(boundIsbn.isbn);
+		
+		// transform Promise<List<BookInfo>> -> Promise<Result>
+		return list.map(
+				new Function<List<BookInfo>, Result>() {
+					public Result apply(List<BookInfo> list) {
+						return ok(views.html.selectBook.render(list));
+					}
+				}
+		);
 	}
 
 }
