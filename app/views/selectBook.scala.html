@@ -1,0 +1,9 @@
+@(bookInfos: List[BookInfo])
+
+@main("Select a book to import to your library") {
+	<ul>
+	@for(book <- bookInfos) {
+		<li><em>@book.title</em> by <em>@book.authorName.mkString(", ")</em></li>
+	}
+	</ul>
+}
