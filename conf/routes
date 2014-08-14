@@ -14,6 +14,7 @@ GET		/search/num/:query		controllers.OpenLibrary.numMatchingItems(query: String)
 GET		/search/:query			controllers.OpenLibrary.getBookInfoJson(query: String)
 
 POST	/save/fromisbn			controllers.Books.saveFromIsbn()
+POST	/save/isbnselection		controllers.Books.saveIsbnSelection()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

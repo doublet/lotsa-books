@@ -111,4 +111,7 @@ public class Books extends Controller {
 		);
 	}
 
+	public static Promise<Result> saveIsbnSelection () {
+		return Promise.pure(TODO);
+	}
 }
