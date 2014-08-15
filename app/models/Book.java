@@ -29,6 +29,12 @@ public class Book extends Model {
 		return find.all();
 	}
 	
+	public void save() {
+		// save OneToOne relation
+		this.info.save();
+		super.save();
+	}
+	
 	/**
 	 * Calculates how much of the book has been read
 	 * @return The percentage of the book read
