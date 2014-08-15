@@ -2,10 +2,12 @@ package models;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
+import play.Logger;
 import play.db.ebean.Model;
 
 @Entity
@@ -15,7 +17,7 @@ public class Book extends Model {
 	@Id
 	public Long id;
 	
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	public BookInfo info = new BookInfo();
 	
 	public int pages;
@@ -34,7 +36,7 @@ public class Book extends Model {
 		this.info.save();
 		super.save();
 	}
-	
+
 	/**
 	 * Calculates how much of the book has been read
 	 * @return The percentage of the book read
