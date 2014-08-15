@@ -115,6 +115,11 @@ public class Books extends Controller {
 	public static Promise<Result> saveIsbnSelection () {
 		Form<views.formdata.SelectBookData> selectForm = Form.form(views.formdata.SelectBookData.class).bindFromRequest();
 		
+		if(selectForm.hasErrors()) {
+			Result bad = badRequest("You submitted an incorrect form. Please go back and try again.");
+			return Promise.pure(bad);
+		}
+		
 		// turn the OpenLibrary key we bound into a book
 		Promise<Book> book = OpenLibrary.getBookByOLKey(selectForm.get().openlibraryKey);
 		
