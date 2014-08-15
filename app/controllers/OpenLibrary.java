@@ -85,4 +85,24 @@ public class OpenLibrary extends Controller {
 	    return promise;
 	}
 	
+	/**
+	 * Get a book, given its OpenLibrary key
+	 * @return
+	 */
+	public static Promise<Book> getBookByOLKey(String key) {
+		final Promise<Book> promise = searchBooks(key).map(
+			new Function<List<BookInfo>, Book>() {
+				public Book apply(List<BookInfo> list) {
+					BookInfo info = list.get(0);
+					Book book = new Book();
+					
+					book.info = info;
+					
+					return book;
+				}
+			}
+		);
+		return promise;
+	}
+	
 }
