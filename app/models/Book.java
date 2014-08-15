@@ -34,6 +34,7 @@ public class Book extends Model {
 	 * @return The percentage of the book read
 	 */
 	public int getProgress() {
+		if(pages == 0 || pagesRead == 0) return 0;
 		return (pagesRead * 100 / pages);
 	}
 }
