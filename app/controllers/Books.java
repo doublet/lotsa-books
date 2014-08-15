@@ -3,6 +3,7 @@ package controllers;
 import java.util.List;
 
 import models.*;
+import play.Logger;
 import play.data.Form;
 import play.libs.F.Function;
 import play.libs.F.Promise;
@@ -112,6 +113,21 @@ public class Books extends Controller {
 	}
 
 	public static Promise<Result> saveIsbnSelection () {
-		return Promise.pure(TODO);
+		Form<views.formdata.SelectBookData> selectForm = Form.form(views.formdata.SelectBookData.class).bindFromRequest();
+		
+		// turn the OpenLibrary key we bound into a book
+		Promise<Book> book = OpenLibrary.getBookByOLKey(selectForm.get().openlibraryKey);
+		
+		// persist the book and show its details
+		final Promise<Result> promise = book.map(
+				new Function<Book, Result>() {
+					public Result apply(Book book) {
+						book.save();
+						flash("success", "Book was succesfully imported.");
+						return redirect(routes.Books.details(book.id));
+					}
+				}
+		);
+		return promise;
 	}
 }
