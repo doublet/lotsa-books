@@ -97,6 +97,7 @@ public class OpenLibrary extends Controller {
 					Book book = new Book();
 					
 					book.info = info;
+					info.book = book;
 					
 					return book;
 				}
