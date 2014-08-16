@@ -29,5 +29,5 @@ public class BookInfo extends Model {
 	
 	// identification
 	public String openlibraryKey;
-	public List<String> isbn = new ArrayList<>();
+	public List<Isbn> isbns = new ArrayList<>();
 }
