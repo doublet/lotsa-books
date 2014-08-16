@@ -32,4 +32,9 @@ public class BookInfo extends Model {
 	public String openlibraryKey;
 	@OneToMany(cascade=CascadeType.ALL)
 	public List<Isbn> isbns = new ArrayList<>();
+	
+	public void addIsbn(Isbn isbn) {
+		this.isbns.add(isbn);
+		isbn.bookInfo = this;
+	}
 }

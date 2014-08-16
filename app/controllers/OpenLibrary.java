@@ -53,7 +53,7 @@ public class OpenLibrary extends Controller {
 							while(itIsbn.hasNext()) {
 								JsonNode node = itIsbn.next();
 								Isbn isbn = new Isbn(node.asText());
-								if(isbn.isValid()) toAdd.isbns.add(isbn);
+								if(isbn.isValid()) toAdd.addIsbn(isbn);
 							}
 							
 							iteratorToList(json.findValue("publisher").elements(), toAdd.publisher);
