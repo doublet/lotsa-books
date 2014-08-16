@@ -44,4 +44,9 @@ public class Isbn extends Model {
     	if(!Isbn.isValid(this.isbn)) errors.add(new ValidationError("isbn", "Malformed ISBN"));
     	return errors.isEmpty() ? null : errors;
     }
+    
+	@Override
+	public String toString() {
+		return this.isbn;
+	}
 }
