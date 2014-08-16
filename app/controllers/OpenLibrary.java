@@ -48,7 +48,14 @@ public class OpenLibrary extends Controller {
 							toAdd.authorName = new ArrayList<>();
 							
 							iteratorToList(json.findValue("author_name").elements(), toAdd.authorName);
-							iteratorToList(json.findValue("isbn").elements(), toAdd.isbn);
+							
+							Iterator<JsonNode> itIsbn = json.findValue("isbn").elements();
+							while(itIsbn.hasNext()) {
+								JsonNode node = itIsbn.next();
+								Isbn isbn = new Isbn(node.asText());
+								if(isbn.isValid()) toAdd.isbns.add(isbn);
+							}
+							
 							iteratorToList(json.findValue("publisher").elements(), toAdd.publisher);
 							iteratorToList(json.findValue("language").elements(), toAdd.language);
 							
