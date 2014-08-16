@@ -25,6 +25,10 @@ public class Isbn extends Model {
 		this.isbn = isbn;
 	}
 
+	public boolean isValid() {
+		return this.isValid(this.isbn);
+	}
+	
 	public static boolean isValid(String input) {
         ISBNValidator validator = new ISBNValidator();
         return validator.isValid(input);
