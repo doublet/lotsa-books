@@ -36,6 +36,11 @@ public class Book extends Model {
 		this.info.save();
 		super.save();
 	}
+	
+	public void setInfo(BookInfo info) {
+		this.info = info;
+		info.book = this;
+	}
 
 	/**
 	 * Calculates how much of the book has been read

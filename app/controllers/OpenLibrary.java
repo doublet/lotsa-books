@@ -96,8 +96,7 @@ public class OpenLibrary extends Controller {
 					BookInfo info = list.get(0);
 					Book book = new Book();
 					
-					book.info = info;
-					info.book = book;
+					book.setInfo(info);
 					
 					return book;
 				}
