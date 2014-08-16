@@ -19,7 +19,7 @@ public class Isbn extends Model {
 	public Long id;
 	
 	@ManyToOne(cascade=CascadeType.ALL)
-	public Book book;
+	public BookInfo bookInfo;
 	
 	public String isbn;
 
