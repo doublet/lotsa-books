@@ -3,8 +3,10 @@ package models;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 import org.apache.commons.validator.routines.ISBNValidator;
 
@@ -15,6 +17,9 @@ import play.db.ebean.Model;
 public class Isbn extends Model {
 	@Id
 	public Long id;
+	
+	@ManyToOne(cascade=CascadeType.ALL)
+	public Book book;
 	
 	public String isbn;
 
