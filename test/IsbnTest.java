@@ -20,4 +20,9 @@ public class IsbnTest {
 		assertThat(Isbn.isValid("978-4493-4468-9 ")).isFalse();
 		assertThat(Isbn.isValid("978-1--4493-4468-9 ")).isFalse();
 	}
+	
+	@Test
+	public void jsonTest() {
+		assertThat(new Isbn("1-4493-4468-2").toJson()).isEqualTo("{\"isbn\": \"1-4493-4468-2\"}");
+	}
 }
