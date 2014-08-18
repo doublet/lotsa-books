@@ -4,8 +4,12 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import com.fasterxml.jackson.databind.JsonNode;
 
+import play.Logger;
 import play.mvc.Controller;
 import play.libs.WS;
 import play.libs.Json;
@@ -84,8 +88,19 @@ public class OpenLibrary extends Controller {
 	public static Promise<Result> getBookInfoJson(String query) {
 	    final Promise<Result> promise = searchBooks(query).map(
 	            new Function<List<BookInfo>, Result>() {
-	                public Result apply(List<BookInfo> lijst) {
-	                    return ok(Json.toJson(lijst));
+	                public Result apply(List<BookInfo> list) {
+	                	StringBuilder res = new StringBuilder();
+	                	res.append("{ \"data\": [ ");
+	                	for (int i = 0; i < list.size(); i++) {
+							res.append(list.get(i).toJson());
+	                		if(i != list.size() - 1) res.append(", ");
+						}
+	                	res.append(" ] }");
+	                	try {
+							return ok(new JSONObject(res.toString()).toString(2));
+						} catch (JSONException e) {
+							return internalServerError(e.getMessage());
+						}
 	                }
 	            }
 	    );
