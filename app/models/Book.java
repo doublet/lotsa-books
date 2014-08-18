@@ -7,11 +7,13 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
+import com.github.doublet.lotsabooks.Jsonizable;
+
 import play.Logger;
 import play.db.ebean.Model;
 
 @Entity
-public class Book extends Model {
+public class Book extends Model implements Jsonizable {
 	public static final Finder<Long, Book> find = new Finder<>(Long.class, Book.class);
 	
 	@Id
@@ -49,5 +51,10 @@ public class Book extends Model {
 	public int getProgress() {
 		if(pages == 0 || pagesRead == 0) return 0;
 		return (pagesRead * 100 / pages);
+	}
+
+	@Override
+	public String toJson() {
+		return String.format("{ `info`: %s }".replace('`', '"'), this.info);
 	}
 }

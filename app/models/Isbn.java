@@ -10,11 +10,13 @@ import javax.persistence.ManyToOne;
 
 import org.apache.commons.validator.routines.ISBNValidator;
 
+import com.github.doublet.lotsabooks.Jsonizable;
+
 import play.data.validation.ValidationError;
 import play.db.ebean.Model;
 
 @Entity
-public class Isbn extends Model {
+public class Isbn extends Model implements Jsonizable {
 	@Id
 	public Long id;
 	
@@ -48,5 +50,9 @@ public class Isbn extends Model {
 	@Override
 	public String toString() {
 		return this.isbn;
+	}
+	
+	public String toJson() {
+		return String.format("{\"isbn\": \"%s\"}", this.isbn);
 	}
 }

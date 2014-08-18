@@ -9,10 +9,12 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.github.doublet.lotsabooks.Jsonizable;
+
 import play.db.ebean.Model;
 
 @Entity
-public class BookInfo extends Model {
+public class BookInfo extends Model implements Jsonizable {
 	@Id
 	public Long id;
 	
@@ -36,5 +38,21 @@ public class BookInfo extends Model {
 	public void addIsbn(Isbn isbn) {
 		this.isbns.add(isbn);
 		isbn.bookInfo = this;
+	}
+
+	@Override
+	public String toJson() {
+		return String.format("{ `id`: `%s`, `title`: `%s`, `isbns`: %s }".replace('`', '"'), this.id, this.title, this.isbnsToString());
+	}
+
+	private String isbnsToString() {
+		StringBuilder ret = new StringBuilder();
+		ret.append("[ ");
+		for (int i = 0; i < this.isbns.size(); i++) {
+			ret.append(this.isbns.get(i).toJson());
+			if(i != this.isbns.size() - 1) ret.append(", ");
+		}
+		ret.append("]");
+		return ret.toString();
 	}
 }
