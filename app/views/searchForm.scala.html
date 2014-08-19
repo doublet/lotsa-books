@@ -1,0 +1,12 @@
+@(searchTermForm: Form[formbinder.SearchTerm])
+@import play.api.templates.Html
+
+@main("Enter a term to search") {
+	@helper.form(action = routes.Books.saveSearchForm(), 'class -> "form-horizontal") {
+		<fieldset>
+			<legend>Give me something to search for:</legend>
+				@helper.inputText(searchTermForm("term"), 'class -> "form-control")
+			<button type="submit" class="btn btn-primary">Search</button>
+		</fieldset>
+	}
+}
