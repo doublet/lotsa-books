@@ -138,19 +138,32 @@ public class Books extends Controller {
 		return promise;
 	}
 	
-	public static Result showSearchForm() {
-		return ok(views.html.searchForm.render(searchTermForm));
+	public static Promise<Result> showSearchForm() {
+		Result res = ok(views.html.searchForm.render(searchTermForm));
+		return Promise.pure(res);
 	}
 	
-	public static Result saveSearchForm() {
+	public static Promise<Result> saveSearchForm() {
 		Form<SearchTerm> boundForm = searchTermForm.bindFromRequest();
 		
 		if(boundForm.hasErrors()) {
-			return badRequest();
+			flash("error", "There was an error in your submission. Please try again.");
+			Result bad = badRequest(views.html.searchForm.render(boundForm));
+			return Promise.pure(bad);
 		}
 		
 		SearchTerm search = boundForm.get();
 		
-		return ok(search.term);
+		// search OpenLibrary for this term
+		Promise<List<BookInfo>> list = OpenLibrary.searchBooks(search.term);
+		
+		// transform Promise<List<BookInfo>> -> Promise<Result>
+		return list.map(
+				new Function<List<BookInfo>, Result>() {
+					public Result apply(List<BookInfo> list) {
+						return ok(views.html.selectBook.render(list));
+					}
+				}
+		);
 	}
 }
