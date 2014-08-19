@@ -114,7 +114,7 @@ public class Books extends Controller {
 		);
 	}
 
-	public static Promise<Result> saveIsbnSelection () {
+	public static Promise<Result> saveFoundSelection () {
 		Form<formbinder.SelectBookData> selectForm = Form.form(formbinder.SelectBookData.class).bindFromRequest();
 		
 		if(selectForm.hasErrors()) {

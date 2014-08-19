@@ -15,7 +15,7 @@ GET		/search/num/:query		controllers.OpenLibrary.numMatchingItems(query: String)
 GET		/search/:query			controllers.OpenLibrary.getBookInfoJson(query: String)
 
 POST	/save/fromisbn			controllers.Books.saveFromIsbn()
-POST	/save/isbnselection		controllers.Books.saveIsbnSelection()
+POST	/save/isbnselection		controllers.Books.saveFoundSelection()
 
 POST	/save/fromsearchterm	controllers.Books.saveSearchForm()
 

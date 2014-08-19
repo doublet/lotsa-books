@@ -1,7 +1,7 @@
 @(bookInfos: List[BookInfo])
 
 @main("Select a book to import to your library") {
-	@helper.form(action = routes.Books.saveIsbnSelection(), 'class -> "form-horizontal") {
+	@helper.form(action = routes.Books.saveFoundSelection(), 'class -> "form-horizontal") {
 	
 		@if(bookInfos.length == 0) { <em>No books found.</em>} else {
 			@for(book <- bookInfos) {
