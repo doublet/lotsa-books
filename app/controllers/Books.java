@@ -13,8 +13,8 @@ import scala.Function0;
 import views.html.*;
 
 public class Books extends Controller {
-	private static final Form<Book> bookForm = new Form<>(Book.class);	
-	private static final Form<Isbn> isbnForm = new Form<>(Isbn.class);	
+	private static final Form<Book> bookForm = new Form<>(Book.class);
+	private static final Form<Isbn> isbnForm = new Form<>(Isbn.class);
 	
 	/**
 	 * List all books
@@ -113,7 +113,7 @@ public class Books extends Controller {
 	}
 
 	public static Promise<Result> saveIsbnSelection () {
-		Form<views.formdata.SelectBookData> selectForm = Form.form(views.formdata.SelectBookData.class).bindFromRequest();
+		Form<formbinder.SelectBookData> selectForm = Form.form(formbinder.SelectBookData.class).bindFromRequest();
 		
 		if(selectForm.hasErrors()) {
 			Result bad = badRequest("You submitted an incorrect form. Please go back and try again.");
