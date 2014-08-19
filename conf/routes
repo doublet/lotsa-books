@@ -6,6 +6,7 @@ GET		/						controllers.Books.list()
 GET		/list					controllers.Books.list()
 GET		/new					controllers.Books.newBook()
 GET		/new/fromisbn			controllers.Books.newBookFromIsbn()
+GET		/new/fromsearch			controllers.Books.showSearchForm()
 GET		/details/:id			controllers.Books.details(id: Long)
 GET		/edit/:id				controllers.Books.edit(id: Long)
 POST	/save					controllers.Books.save()
@@ -15,6 +16,8 @@ GET		/search/:query			controllers.OpenLibrary.getBookInfoJson(query: String)
 
 POST	/save/fromisbn			controllers.Books.saveFromIsbn()
 POST	/save/isbnselection		controllers.Books.saveIsbnSelection()
+
+POST	/save/fromsearchterm	controllers.Books.saveSearchForm()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

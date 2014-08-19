@@ -11,10 +11,12 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import scala.Function0;
 import views.html.*;
+import formbinder.*;
 
 public class Books extends Controller {
 	private static final Form<Book> bookForm = new Form<>(Book.class);
 	private static final Form<Isbn> isbnForm = new Form<>(Isbn.class);
+	private static final Form<SearchTerm> searchTermForm = new Form<>(SearchTerm.class);
 	
 	/**
 	 * List all books
@@ -134,5 +136,21 @@ public class Books extends Controller {
 				}
 		);
 		return promise;
+	}
+	
+	public static Result showSearchForm() {
+		return ok(views.html.searchForm.render(searchTermForm));
+	}
+	
+	public static Result saveSearchForm() {
+		Form<SearchTerm> boundForm = searchTermForm.bindFromRequest();
+		
+		if(boundForm.hasErrors()) {
+			return badRequest();
+		}
+		
+		SearchTerm search = boundForm.get();
+		
+		return ok(search.term);
 	}
 }
