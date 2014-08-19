@@ -45,23 +45,34 @@ public class OpenLibrary extends Controller {
 							// build new BookInfo
 							BookInfo toAdd = new BookInfo();
 							
-							toAdd.title = json.findValue("title").asText();
-							toAdd.publishYear = json.findValue("publish_year").asText();
+							if(json.findValue("title") != null)
+								toAdd.title = json.findValue("title").asText();
+							else
+								toAdd.title = "";
+							
+							if(json.findValue("publish_year") != null)
+								toAdd.publishYear = json.findValue("publish_year").asText();
+							
 							toAdd.openlibraryKey = json.findValue("key").asText();
 							
 							toAdd.authorName = new ArrayList<>();
 							
-							iteratorToList(json.findValue("author_name").elements(), toAdd.authorName);
+							if(json.findValue("author_name") != null)
+								iteratorToList(json.findValue("author_name").elements(), toAdd.authorName);
 							
-							Iterator<JsonNode> itIsbn = json.findValue("isbn").elements();
-							while(itIsbn.hasNext()) {
-								JsonNode node = itIsbn.next();
-								Isbn isbn = new Isbn(node.asText());
-								if(isbn.isValid()) toAdd.addIsbn(isbn);
+							if(json.findValue("isbn") != null) {
+								Iterator<JsonNode> itIsbn = json.findValue("isbn").elements();
+								while(itIsbn.hasNext()) {
+									JsonNode node = itIsbn.next();
+									Isbn isbn = new Isbn(node.asText());
+									if(isbn.isValid()) toAdd.addIsbn(isbn);
+								}
 							}
 							
-							iteratorToList(json.findValue("publisher").elements(), toAdd.publisher);
-							iteratorToList(json.findValue("language").elements(), toAdd.language);
+							if(json.findValue("publisher") != null)
+								iteratorToList(json.findValue("publisher").elements(), toAdd.publisher);
+							if(json.findValue("language") != null)
+								iteratorToList(json.findValue("language").elements(), toAdd.language);
 							
 							res.add(toAdd);
 							
