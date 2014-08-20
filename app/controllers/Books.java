@@ -80,8 +80,18 @@ public class Books extends Controller {
 		Book boundBook = boundForm.get();
 		if(boundBook.id == null)
 			boundBook.save();
-		else
-			boundBook.update();
+		else {
+			Book staleBook = Book.findById(boundBook.id);
+			if(staleBook == null)
+				boundBook.save();
+			else {
+				staleBook.info.title = boundBook.info.title;
+				staleBook.pages = boundBook.pages;
+				staleBook.pagesRead = boundBook.pagesRead;
+				
+				staleBook.update();
+			}
+		}
 		
 		return redirect(routes.Books.details(boundBook.id));
 	}
