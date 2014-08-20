@@ -138,7 +138,7 @@ public class Books extends Controller {
 		return promise;
 	}
 	
-	public static Promise<Result> showSearchForm() {
+	public static Promise<Result> newBookFromSearch() {
 		Result res = ok(views.html.searchForm.render(searchTermForm));
 		return Promise.pure(res);
 	}
