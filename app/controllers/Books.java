@@ -135,10 +135,15 @@ public class Books extends Controller {
 		// turn the OpenLibrary key we bound into a book
 		Promise<Book> book = OpenLibrary.getBookByOLKey(selectForm.get().openlibraryKey);
 		
+		final String olid = selectForm.get().openlibraryKey;
+		Logger.debug("About to search for book with key " + olid);
+		
 		// persist the book and show its details
 		final Promise<Result> promise = book.map(
 				new Function<Book, Result>() {
 					public Result apply(Book book) {
+						if(book == null)
+							return internalServerError(String.format("There was an error fetching the book from OpenLibrary (key: %s).", olid));
 						book.save();
 						flash("success", "Book was succesfully imported.");
 						return redirect(routes.Books.details(book.id));
