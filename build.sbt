@@ -4,16 +4,18 @@ version := "1.0-SNAPSHOT"
 
 
 libraryDependencies ++= Seq(
+  javaWs,
   javaJdbc,
   javaEbean,
   cache,
-  "org.webjars" %% "webjars-play" % "2.2.1-2",
-  "org.webjars" % "bootstrap" % "3.1.1-1",
+  "org.webjars" % "bootstrap" % "3.2.0",
   "commons-validator" % "commons-validator" % "1.4.0",
   "org.json" % "json" % "20140107"
-)     
+)
 
-play.Project.playJavaSettings
+lazy val root = (project in file(".")).enablePlugins(PlayJava)
+
+scalaVersion := "2.11.1"
 
 javacOptions ++= Seq("-source", "1.8", "-target", "1.8", "-Xlint")
 
