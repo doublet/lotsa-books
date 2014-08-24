@@ -16,7 +16,7 @@ libraryDependencies ++= Seq(
 
 lazy val root = (project in file(".")).enablePlugins(PlayJava)
 
-scalaVersion := "2.11.1"
+scalaVersion := "2.10.4"
 
 javacOptions ++= Seq("-source", "1.8", "-target", "1.8", "-Xlint")
 
