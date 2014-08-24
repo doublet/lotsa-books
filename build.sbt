@@ -9,6 +9,7 @@ libraryDependencies ++= Seq(
   javaEbean,
   cache,
   "org.webjars" % "bootstrap" % "3.2.0",
+  "org.webjars" % "jquery" % "2.1.1",
   "commons-validator" % "commons-validator" % "1.4.0",
   "org.json" % "json" % "20140107"
 )
