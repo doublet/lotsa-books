@@ -1,6 +1,7 @@
 package controllers;
 
 import java.util.List;
+import java.util.Map;
 
 import models.*;
 import play.Logger;
@@ -12,6 +13,7 @@ import play.mvc.Result;
 import scala.Function0;
 import views.html.*;
 import formbinder.*;
+import java.util.HashMap;
 
 public class Books extends Controller {
 	private static final Form<Book> bookForm = new Form<>(Book.class);
@@ -132,6 +134,13 @@ public class Books extends Controller {
 			return Promise.pure(bad);
 		}
 		
+		// check if this OLID doesn't refer to a Work
+		// if it does, redirect to a page to select an edition of this work
+		if(selectForm.get().isWork()) {
+			flash("notice", "Select an edition of this work");
+			return selectForm.get().getAllEditions().map(allEditions -> ok(views.html.selectBook.render(allEditions)));
+		}
+		
 		// turn the OpenLibrary key we bound into a book
 		Promise<Book> book = OpenLibrary.getBookByOLKey(selectForm.get().openlibraryKey);
 		
@@ -173,12 +182,6 @@ public class Books extends Controller {
 		Promise<List<BookInfo>> list = OpenLibrary.searchBooks(search.term);
 		
 		// transform Promise<List<BookInfo>> -> Promise<Result>
-		return list.map(
-				new Function<List<BookInfo>, Result>() {
-					public Result apply(List<BookInfo> list) {
-						return ok(views.html.selectBook.render(list));
-					}
-				}
-		);
+		return list.map(theList -> ok(views.html.selectBook.render(theList)) );
 	}
 }
