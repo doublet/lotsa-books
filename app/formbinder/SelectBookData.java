@@ -24,10 +24,19 @@ public class SelectBookData {
 		return openlibraryKey.endsWith("W");
 	}
 	
+	/**
+	 * Transparantly retrieve a list of info of all the editions for this Work/Book, whether it's a Book (only one possible) or a Work (possibly more than one)
+	 * @return A list of info
+	 */
 	public Promise<List<BookInfo>> getAllEditions() {
 		
 		if(!isWork()) {
-			return Promise.pure(null);
+			// return a list with a single element - this book
+			return OpenLibrary.getBookByOLKey(openlibraryKey).map(book -> {
+				List<BookInfo> res = new ArrayList<>();
+				res.add(book.info);
+				return res;
+			});
 		}
 		
 		// get a list of OLIDs
