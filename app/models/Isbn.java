@@ -33,7 +33,7 @@ public class Isbn extends Model implements Jsonizable {
 	}
 
 	public boolean isValid() {
-		return this.isValid(this.isbn);
+		return Isbn.isValid(this.isbn);
 	}
 	
 	public static boolean isValid(String input) {
