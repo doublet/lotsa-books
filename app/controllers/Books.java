@@ -137,7 +137,7 @@ public class Books extends Controller {
 		// check if this OLID doesn't refer to a Work
 		// if it does, redirect to a page to select an edition of this work
 		if(selectForm.get().isWork()) {
-			flash("notice", "Select an edition of this work");
+			flash("notice", "This work has multiple editions. Please select one to add.");
 			return selectForm.get().getAllEditions().map(allEditions -> ok(views.html.selectBook.render(allEditions)));
 		}
 		
